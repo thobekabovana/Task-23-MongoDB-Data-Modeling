@@ -28,7 +28,13 @@ function Login() {
       localStorage.setItem("token", response.data.token);
       navigate("/dashboard");
     } catch (err) {
-      console.log(err);
+      if (err.response && err.response.status === 404) {
+        alert("No such user found. Please check your email and try again.");
+      } else if (err.response && err.response.status === 400) {
+        alert("Invalid credentials. Please check your password.");
+      } else {
+        alert("Something went wrong. Please try again later.");
+      }
     }
   };
 

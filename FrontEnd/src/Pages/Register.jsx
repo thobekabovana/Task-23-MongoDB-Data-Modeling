@@ -16,16 +16,27 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Send the registration request
       await axios.post("http://localhost:5000/api/users/register", formData);
+  
+      // Show success alert and navigate to login page
+      alert("Registration successful! Please log in.");
       navigate("/login");
     } catch (err) {
-      if (err.response && err.response.data.message === "User already exists") {
-        setError("You already have an account.");
+      if (err.response) {
+        // If the error is from the server, check the response status and message
+        if (err.response.status === 400) {
+          alert(err.response.data.message);  // This will show "User already exists"
+        } else {
+          alert("An error occurred. Please try again.");
+        }
       } else {
-        setError("An error occurred. Please try again.");
+        // Network or other issues
+        alert("Network error. Please try again.");
       }
     }
   };
+  
 
   return (
     <div>
