@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -30,7 +31,13 @@ function Login() {
         <input type="password" name="password" placeholder="Password" onChange={handleChange} />
         <button type="submit">Login</button>
       </form>
+
+      <p>
+        Don't have an account? <Link to="/register">Click here</Link> to register.
+      </p>
+      
     </div>
+    
   );
 }
 
