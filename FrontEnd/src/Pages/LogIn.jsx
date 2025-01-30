@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
@@ -6,6 +6,15 @@ import { Link } from 'react-router-dom';
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the token exists in localStorage
+    const token = localStorage.getItem("token");
+    if (token) {
+      // If token exists, redirect to dashboard
+      navigate("/dashboard");
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,9 +44,7 @@ function Login() {
       <p>
         Don't have an account? <Link to="/register">Click here</Link> to register.
       </p>
-      
     </div>
-    
   );
 }
 

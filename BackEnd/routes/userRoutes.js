@@ -32,8 +32,10 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
     res.json({ token });
   } catch (err) {
-    res.status(500).json(err);
+    console.error("Login error:", err);  // Add this line to log the error
+    res.status(500).json("Internal Server Error");
   }
 });
+
 
 module.exports = router;
